@@ -24,9 +24,7 @@ function newFind(arr,callback){
         if(callback(arr[i],i,arr)){
             return arr[i]
         }
-        return undefined
-        //tecnicamente desnecessário pois, 
-        //caso não haja retorno, ele é undefined por padrão
+        //aparentemente, remover o retorno do undefined resolveu
     }
 }
 function newFindIndex(arr,callback){
@@ -61,13 +59,15 @@ function newEvery(arr,callback){
         if(!callback(arr[i],i,arr)){
             return false
         }
-        return true
     }
+    return true
+    //return true estava dentro do for
 }
 function newFill(arr,value,start=0,end=arr.length){
     for(let i=start;i<end;i++){
         arr[i]=value
     }
+    return arr
 }
 function newIncludes(arr,element,start=0){
     for(let i=start;i<arr.length;i++){
@@ -100,10 +100,11 @@ function newConcat(...arr){
 }
 function newJoin(arr, between=","){
     let result =""
-    for(let i=0;i<arr.length-1;i++){
+    for(let i=0;i<arr.length;i++){
         result += arr[i]
-        result += between
+        if(i<arr.length-1){
+            result += between
+        }
     }
-    result+=arr[length-1]
     return result
 }
